@@ -160,10 +160,10 @@ ng generate service auth/AuthService
 
 A new file `src/app/auth/auth.service.ts` will be generated for you. Open this inside your code editor and add the following content:
 
-```js
+```ts
 import { Injectable } from '@angular/core';
 import createAuth0Client from '@auth0/auth0-spa-js';
-import Auth0Client from '@auth0/auth0-spa-js/dist/typings/src/Auth0Client';
+import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import * as config from '../../../auth_config.json';
 import { BehaviorSubject } from 'rxjs';
 
@@ -227,7 +227,7 @@ Open the `src/app/navbar/navbar.component.ts` file and replace its contents with
 
 ```js
 import { Component, OnInit } from '@angular/core';
-import Auth0Client from '@auth0/auth0-spa-js/dist/typings/src/Auth0Client';
+import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({

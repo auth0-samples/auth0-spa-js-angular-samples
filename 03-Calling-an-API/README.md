@@ -168,7 +168,7 @@ this.auth0Client = await createAuth0Client({
 
 Now add a new `BehaviorSubject` to this class that can store the access token:
 
-```js
+```ts
 // src/app/auth/auth.service.ts
 
 isAuthenticated = new BehaviorSubject(false);
@@ -191,7 +191,7 @@ Once all of the changes are made, your `AuthService` file might look something l
 
 import { Injectable, OnInit } from '@angular/core';
 import createAuth0Client from '@auth0/auth0-spa-js';
-import Auth0Client from '@auth0/auth0-spa-js/dist/typings/src/Auth0Client';
+import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import * as config from '../../../auth_config.json';
 import { BehaviorSubject } from 'rxjs';
 
@@ -270,7 +270,7 @@ Next, open `src/app/external-api/external-api.component.ts` and replace its cont
 // src/app/external-api/external-api.component.ts
 
 import { Component, OnInit } from '@angular/core';
-import Auth0Client from '@auth0/auth0-spa-js/dist/typings/src/Auth0Client';
+import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 
