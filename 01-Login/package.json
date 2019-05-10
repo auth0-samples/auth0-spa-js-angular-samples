@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "@auth0/auth0-spa-js": "^1.0.0-beta.1"
+    "@auth0/auth0-spa-js": "^1.0.0-beta.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.13.0",
