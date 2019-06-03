@@ -43,7 +43,7 @@ For **Signing Algorithm**, select **RS256**.
 
 ## Create the Backend API
 
-For this example, you'll create an [Express](https://expressjs.com/) server that acts as the backend API. This API will expose an endpoint to validate incoming ID Tokens before returning a response.
+For this example, you'll create an [Express](https://expressjs.com/) server that acts as the backend API. This API will expose an endpoint to validate incoming access tokens before returning a response.
 
 Start by installing the following packages:
 
