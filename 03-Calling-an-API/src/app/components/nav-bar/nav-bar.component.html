@@ -96,7 +96,7 @@
         <!-- /Responsive login button -->
 
         <!-- Responsive profile dropdown: show if authenticated -->
-        <ul class="navbar-nav d-md-none">
+        <ul class="navbar-nav d-md-none" *ngIf="isAuthenticated">
           <li class="nav-item">
             <span class="user-info" *ngIf="profile">
               <!-- Profile image should be set to the profile picture from the id token -->
