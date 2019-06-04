@@ -70,14 +70,14 @@
               >
                 <span class="icon icon-profile"></span> Profile
               </a>
-              <a
+              <button
                 href="#"
                 (click)="logout()"
-                class="dropdown-item"
+                class="btn btn-link dropdown-item"
                 id="qsLogoutBtn"
               >
                 <span class="icon icon-power"></span> Log out
-              </a>
+              </button>
             </div>
           </li>
           <!-- /Fullsize dropdown -->
@@ -116,7 +116,9 @@
 
           <li>
             <span class="icon icon-power"></span>
-            <a href="#" id="qsLogoutBtn">Log out</a>
+            <button class="btn btn-link" id="qsLogoutBtn" (click)="logout()">
+              Log out
+            </button>
           </li>
         </ul>
       </div>
