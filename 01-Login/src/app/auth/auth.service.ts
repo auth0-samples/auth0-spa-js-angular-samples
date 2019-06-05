@@ -13,6 +13,8 @@ export class AuthService {
 
   private auth0Client: Auth0Client;
 
+  config = config;
+
   async getAuth0Client(): Promise<Auth0Client> {
     if (!this.auth0Client) {
       this.auth0Client = await createAuth0Client({

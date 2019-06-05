@@ -35,6 +35,9 @@ export class NavBarComponent implements OnInit {
   }
 
   logout() {
-    this.auth0Client.logout();
+    this.auth0Client.logout({
+      client_id: this.authService.config.clientId,
+      returnTo: window.location.origin
+    });
   }
 }
