@@ -264,51 +264,77 @@ Open `src/app/external-api/external-api.component.html` and replace its contents
 
 The UI for this component is a simple button that invokes a call to the API. The results of the call are then displayed in the `code` element.
 
+Next, create a new service that will be responsible for making API calls:
+
+```bash
+ng generate service services/api
+```
+
+Then open `src/app/services/api.service.ts` and replace its contents with the following:
+
+```ts
+// src/app/services/api.service.ts
+
+import { Injectable } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ApiService {
+  constructor(
+    private authService: AuthService,
+    private httpClient: HttpClient
+  ) {}
+
+  async ping(): Promise<any> {
+    const client = await this.authService.getAuth0Client();
+    const token = await client.getTokenSilently();
+
+    return this.httpClient
+      .get('/api/external', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .toPromise();
+  }
+}
+```
+
+All the endpoints that the API exposes can be added here. Right now, there is just one: the `ping` endpoint. The `ping()` method above retrieves the current access token from the `AuthService` instance and then uses `HttpClient` to make a GET request to the backend API, passing the access token inside the [Authorization header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization).
+
 Next, open `src/app/external-api/external-api.component.ts` and replace its contents with the following:
 
 ```js
 // src/app/external-api/external-api.component.ts
 
-import { Component, OnInit } from '@angular/core';
-import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
-import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../auth/auth.service';
+import { Component } from '@angular/core';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-external-api',
   templateUrl: './external-api.component.html',
   styleUrls: ['./external-api.component.css']
 })
-export class ExternalApiComponent implements OnInit {
-  client: Auth0Client;
+export class ExternalApiComponent {
   responseJson: string;
-  token: string;
+  hasResponse = false;
 
-  constructor(
-    private authService: AuthService,
-    private httpClient: HttpClient
-  ) {}
-
-  ngOnInit() {
-    this.authService.token.subscribe(token => (this.token = token));
-  }
+  constructor(private apiService: ApiService) {}
 
   async pingApi() {
-    this.httpClient
-      .get('/api/external', {
-        headers: {
-          Authorization: `Bearer ${this.token}`
-        }
-      })
-      .subscribe((response: any) => {
-        this.responseJson = JSON.stringify(response, null, 2).trim();
-      });
+    const response = await this.apiService.ping();
+
+    this.responseJson = JSON.stringify(response, null, 2).trim();
+    this.hasResponse = true;
   }
 }
+
 ```
 
-- The `ngOnInit` function here is responsible for retrieving the access token from the authentication service, by _subscribing_ to the `token` BehaviourSubject
-- The `pingApi` function uses [Angular's HttpClient](https://angular.io/guide/http) to make a call to the backend server. It attaches the bearer token to the `Authorization` header so that the request may be authorized
+This component imports the `ApiService` that was created in the previous step, and calls the `ping()` method on it when the _Ping API_ button is clicked. The response from this call is then saved into a local property, and then ultimately displayed on the screen in JSON format.
 
 With this in place, modify the application router so that this new page can be accessed. Open the `src/app/app-routing.module.ts` file and modify the routes list to include the new component for calling the API:
 

@@ -1,38 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
-import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
-import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-external-api',
   templateUrl: './external-api.component.html',
   styleUrls: ['./external-api.component.css']
 })
-export class ExternalApiComponent implements OnInit {
-  client: Auth0Client;
+export class ExternalApiComponent {
   responseJson: string;
   hasResponse = false;
-  token: string;
 
-  constructor(
-    private authService: AuthService,
-    private httpClient: HttpClient
-  ) {}
-
-  ngOnInit() {
-    this.authService.token.subscribe(token => (this.token = token));
-  }
+  constructor(private apiService: ApiService) {}
 
   async pingApi() {
-    this.httpClient
-      .get('/api/external', {
-        headers: {
-          Authorization: `Bearer ${this.token}`
-        }
-      })
-      .subscribe((response: any) => {
-        this.responseJson = JSON.stringify(response, null, 2).trim();
-        this.hasResponse = true;
-      });
+    const response = await this.apiService.ping();
+
+    this.responseJson = JSON.stringify(response, null, 2).trim();
+    this.hasResponse = true;
   }
 }
