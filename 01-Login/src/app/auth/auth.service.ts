@@ -22,19 +22,15 @@ export class AuthService {
         client_id: config.clientId
       });
 
-      try {
-        this.isAuthenticated.next(await this.auth0Client.isAuthenticated());
+      this.isAuthenticated.next(await this.auth0Client.isAuthenticated());
 
-        this.isAuthenticated.subscribe(async isAuthenticated => {
-          if (isAuthenticated) {
-            return this.profile.next(await this.auth0Client.getUser());
-          }
+      this.isAuthenticated.subscribe(async isAuthenticated => {
+        if (isAuthenticated) {
+          return this.profile.next(await this.auth0Client.getUser());
+        }
 
-          this.profile.next(null);
-        });
-      } catch {}
-
-      return this.auth0Client;
+        this.profile.next(null);
+      });
     }
 
     return this.auth0Client;

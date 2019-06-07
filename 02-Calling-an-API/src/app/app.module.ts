@@ -13,7 +13,6 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { HeroComponent } from './components/hero/hero.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeContentComponent } from './components/home-content/home-content.component';
-import { CallbackComponent } from './containers/callback/callback.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { ProfileComponent } from './containers/profile/profile.component';
 import { ExternalApiComponent } from './containers/external-api/external-api.component';
@@ -30,7 +29,6 @@ function hljsLanguages() {
     HeroComponent,
     FooterComponent,
     HomeContentComponent,
-    CallbackComponent,
     LoadingComponent,
     ProfileComponent,
     ExternalApiComponent
