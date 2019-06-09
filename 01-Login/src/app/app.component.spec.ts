@@ -29,15 +29,18 @@ describe('AppComponent', () => {
         })
       ],
       declarations: [
-        HomeComponent,
-        CallbackComponent,
         AppComponent,
+        CallbackComponent,
+        FontAwesomeModule,
+        FooterComponent,
         HeroComponent,
+        HomeComponent,
         HomeContentComponent,
         LoadingComponent,
-        ProfileComponent,
         NavBarComponent,
-        FooterComponent
+        NgbModule,
+        ProfileComponent,
+        RouterTestingModule
       ]
     }).compileComponents();
   }));
