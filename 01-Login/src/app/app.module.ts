@@ -16,7 +16,7 @@ import { CallbackComponent } from './containers/callback/callback.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { ProfileComponent } from './containers/profile/profile.component';
 
-function hljsLanguages() {
+export function hljsLanguages() {
   return [{ name: 'json', func: json }];
 }
 
