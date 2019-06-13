@@ -18,7 +18,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { ProfileComponent } from './containers/profile/profile.component';
 import { ExternalApiComponent } from './containers/external-api/external-api.component';
 
-function hljsLanguages() {
+export function hljsLanguages() {
   return [{ name: 'json', func: json }];
 }
 
