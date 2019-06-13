@@ -5,7 +5,7 @@ import { CallbackComponent } from './containers/callback/callback.component';
 import { ProfileComponent } from './containers/profile/profile.component';
 import { LoginGuard } from './auth/login.guard';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     component: HomeComponent
