@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { ExternalApiComponent } from './external-api.component';
+import { HighlightModule } from 'ngx-highlightjs';
+import { hljsLanguages } from 'src/app/app.module';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ExternalApiComponent', () => {
   let component: ExternalApiComponent;
@@ -8,9 +11,15 @@ describe('ExternalApiComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExternalApiComponent ]
-    })
-    .compileComponents();
+      declarations: [ExternalApiComponent],
+      imports: [
+        RouterTestingModule,
+        HttpClientModule,
+        HighlightModule.forRoot({
+          languages: hljsLanguages
+        })
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

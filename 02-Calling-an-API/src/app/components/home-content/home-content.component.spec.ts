@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeContentComponent } from './home-content.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HeroComponent } from '../hero/hero.component';
 
 describe('ContentComponent', () => {
   let component: HomeContentComponent;
@@ -8,14 +10,14 @@ describe('ContentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [HomeContentComponent]
+      imports: [FontAwesomeModule],
+      declarations: [HomeContentComponent, HeroComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeContentComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

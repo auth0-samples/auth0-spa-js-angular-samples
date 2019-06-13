@@ -6,7 +6,7 @@ import { ProfileComponent } from './containers/profile/profile.component';
 import { LoginGuard } from './auth/login.guard';
 import { ExternalApiComponent } from './containers/external-api/external-api.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     component: HomeComponent
