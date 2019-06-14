@@ -21,23 +21,23 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule.withRoutes(routes),
-        NgbModule,
         FontAwesomeModule,
         HighlightModule.forRoot({
           languages: hljsLanguages
-        })
+        }),
+        NgbModule,
+        RouterTestingModule.withRoutes(routes)
       ],
       declarations: [
-        HomeComponent,
-        CallbackComponent,
         AppComponent,
+        CallbackComponent,
+        FooterComponent,
         HeroComponent,
+        HomeComponent,
         HomeContentComponent,
         LoadingComponent,
-        ProfileComponent,
         NavBarComponent,
-        FooterComponent
+        ProfileComponent
       ]
     }).compileComponents();
   }));
