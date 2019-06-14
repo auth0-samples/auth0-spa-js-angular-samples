@@ -6,7 +6,6 @@ import {
   UrlTree,
   Router
 } from '@angular/router';
-import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -15,27 +14,22 @@ import { AuthService } from './auth.service';
 export class LoginGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(
+  async canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    return this.authService.getAuth0Client().then(client => {
-      return client.isAuthenticated().then(isAuthenticated => {
-        if (isAuthenticated) {
-          return true;
-        }
+  ): Promise<boolean | UrlTree> {
+    const client = await this.authService.getAuth0Client();
+    const isAuthenticated = await client.isAuthenticated();
 
-        client.loginWithRedirect({
-          redirect_uri: `${window.location.origin}/callback`,
-          appState: { target: next.url[0].path }
-        });
+    if (isAuthenticated) {
+      return true;
+    }
 
-        return false;
-      });
+    client.loginWithRedirect({
+      redirect_uri: `${window.location.origin}/callback`,
+      appState: { target: state.url }
     });
+
+    return false;
   }
 }
