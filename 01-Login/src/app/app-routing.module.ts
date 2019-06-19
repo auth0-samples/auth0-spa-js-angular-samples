@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './containers/home/home.component';
 import { CallbackComponent } from './containers/callback/callback.component';
 import { ProfileComponent } from './containers/profile/profile.component';
-import { LoginGuard } from './auth/login.guard';
+import { AuthGuard } from './auth/auth.guard';
 
 export const routes: Routes = [
   {
@@ -17,11 +17,11 @@ export const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
-    canActivate: [LoginGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
-    canActivate: [LoginGuard],
+    canActivate: [AuthGuard],
     children: []
   }
 ];

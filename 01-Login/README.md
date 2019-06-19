@@ -479,31 +479,32 @@ Open the `src/app/auth/auth.guard.ts` file and replace its contents with the fol
 
 ```js
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot):
-   | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  async canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Promise<boolean | UrlTree> {
+    const client = await this.authService.getAuth0Client();
+    const isAuthenticated = await client.isAuthenticated();
 
-    return this.authService.getAuth0Client().then(client => {
-      return client.isAuthenticated().then(isAuthenticated => {
-        if (isAuthenticated) {
-          return true;
-        }
+    if (isAuthenticated) {
+      return true;
+    }
 
-        client.loginWithRedirect({
-          redirect_uri: `${window.location.origin}/callback`,
-          appState: { target: next.url[0].path }
-        });
-      });
+    client.loginWithRedirect({
+      redirect_uri: `${window.location.origin}/callback`,
+      appState: { target: state.url }
     });
+
+    return false;
   }
 }
 ```
